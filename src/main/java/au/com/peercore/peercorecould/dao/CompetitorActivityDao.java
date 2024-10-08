@@ -13,13 +13,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class CompetitorActivityDao {
 
     @Id
-    private String Id;
-    private String Competitor;
-    private String Territory;
-    private String Promotion;
-    private String PromotionType;
-    private String Product;
-    private Object Photo;
-    private String Notes;
+    private String id;
+    private String competitor;
+    private String territory;
+    private String promotion;
+    private String promotionType;
+    private String product;
+    private Object photo;
+    private String notes;
 
 }

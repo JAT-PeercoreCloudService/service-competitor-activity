@@ -66,7 +66,8 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
     public ResponseEntity<CompetitorActivityDao> getSelectedCompetitor(String competitor) {
         System.out.println("Send competitor: "+competitor);
 
-        CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);
+//        CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);.=
+        CompetitorActivityDao allActivity = competitorRepo.existsByCompetitor(competitor);
 
         System.out.println("Send allActivity: "+allActivity);
         responseDao.setCode("200");
