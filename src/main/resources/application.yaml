@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://admin:IYtkNnoV8axchSVm@preercorecloudv3devclus.ac0wy6v.mongodb.net/competitor-activity
+      uri: mongodb+srv://${DB_URL}?retryWrites=true&w=majority
   security:
     oauth2:
       resourceserver:
@@ -13,7 +13,7 @@ server:
     context-path: /api
   error:
     include-message: ALWAYS
-  port: 8081
+  port: ${SERVER_PORT}
 
 auth0:
   audience: 'http://public.api.msalesapp.com'
