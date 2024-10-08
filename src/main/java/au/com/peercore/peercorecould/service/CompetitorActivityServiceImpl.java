@@ -8,16 +8,12 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Transactional
 public class CompetitorActivityServiceImpl implements CompetitorActivityService{
 
     @Autowired
@@ -59,7 +55,6 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
             responseDao.setMessage("Something goes wrong");
             return new ResponseEntity(responseDao, HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @Override
