@@ -3,7 +3,6 @@ package au.com.peercore.peercorecould.controller;
 import au.com.peercore.peercorecould.dao.CommonConstants;
 import au.com.peercore.peercorecould.dao.CompetitorActivityDao;
 import au.com.peercore.peercorecould.service.CompetitorActivityService;
-import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +11,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("v1/competitorActivity")
+@CrossOrigin
 public class CompetitorActivityController {
 
     @Autowired
