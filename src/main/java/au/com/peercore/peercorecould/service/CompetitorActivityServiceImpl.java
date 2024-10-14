@@ -6,12 +6,16 @@ import au.com.peercore.peercorecould.repo.CompetitorRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CompetitorActivityServiceImpl implements CompetitorActivityService{
@@ -43,12 +47,20 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
     }
 
     @Override
-    public ResponseEntity getALlActivity(){
+    public ResponseEntity getALlActivity(int pageNumber, int pageSize, Map<String, String> headers){
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        String tenantId = headers.get("tenant");
+        System.out.println("tenantId: "+tenantId);
+
         try{
-            List<CompetitorActivityDao> allActivity = competitorRepo.findAll();
+            Page<CompetitorActivityDao> allActivity = competitorRepo.findAll(pageable);
+            System.out.println("resutl of allActivity: "+allActivity);
+            //Page<CompetitorActivityDao> allActivity = competitorRepo.findAllByTenantId(tenantId, pageable);
             responseDao.setCode("200");
             responseDao.setMessage("Successfully fetched data");
-            responseDao.setContent(modelMapper.map(allActivity, new TypeToken<ArrayList<CompetitorActivityDao>>(){}.getType()));
+//            responseDao.setContent(modelMapper.map(allActivity, new TypeToken<ArrayList<CompetitorActivityDao>>(){}.getType()));
+            responseDao.setContent(allActivity);
             return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
         } catch (Exception e){
             responseDao.setCode("500");
