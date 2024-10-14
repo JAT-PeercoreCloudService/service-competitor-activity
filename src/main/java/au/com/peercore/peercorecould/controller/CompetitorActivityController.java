@@ -28,7 +28,7 @@ public class CompetitorActivityController {
             @RequestParam(defaultValue = CommonConstants.PAGE_SIZE) int pageSize,
             @RequestHeader Map<String, String> headers){
         System.out.println("CAME HERE");
-        return competitorActivityService.getALlActivity(pageNumber, pageSize, headers);
+        return competitorActivityService.getAllActivity(pageNumber, pageSize, headers);
     }
 
     @PostMapping("/getSelectedCompetitor")

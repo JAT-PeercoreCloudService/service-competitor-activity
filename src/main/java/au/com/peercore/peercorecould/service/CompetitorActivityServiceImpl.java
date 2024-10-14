@@ -47,7 +47,7 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
     }
 
     @Override
-    public ResponseEntity getALlActivity(int pageNumber, int pageSize, Map<String, String> headers){
+    public ResponseEntity getAllActivity(int pageNumber, int pageSize, Map<String, String> headers){
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         String tenantId = headers.get("tenant");

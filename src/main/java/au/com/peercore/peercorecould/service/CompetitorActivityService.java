@@ -9,6 +9,6 @@ import java.util.Map;
 public interface CompetitorActivityService {
    
    ResponseEntity<CompetitorActivityDao> saveActivity(CompetitorActivityDao activityDao);
-   ResponseEntity<CompetitorActivityDao> getALlActivity(int pageNumber, int pageSize, Map<String, String> headers);
+   ResponseEntity<CompetitorActivityDao> getAllActivity(int pageNumber, int pageSize, Map<String, String> headers);
    ResponseEntity<CompetitorActivityDao> getSelectedCompetitor(String competitor);
 }
