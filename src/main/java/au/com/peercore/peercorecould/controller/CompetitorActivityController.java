@@ -31,8 +31,8 @@ public class CompetitorActivityController {
         return competitorActivityService.getAllActivity(pageNumber, pageSize, headers);
     }
 
-    @PostMapping("/getSelectedCompetitor")
-    public ResponseEntity getSelectedCompetitor(@RequestBody String competitor){
-        return competitorActivityService.getSelectedCompetitor(competitor);
+    @GetMapping("/getSelectedCompetitor/{id}")
+    public ResponseEntity getSelectedCompetitor(@PathVariable String id){
+        return competitorActivityService.getSelectedCompetitor(id);
     }
 }

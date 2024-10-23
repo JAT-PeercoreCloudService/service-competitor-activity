@@ -11,9 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface CompetitorRepo extends MongoRepository<CompetitorActivityDao, String> {
 
     CompetitorActivityDao existsByCompetitor(String competitor);
-
     Page<CompetitorActivityDao> findAllByCompetitor(String tenantId, Pageable pageable);
 
-//    Page<CompetitorActivityDao> findAll(Pageable pageable);
 
 }

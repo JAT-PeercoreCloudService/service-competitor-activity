@@ -71,15 +71,13 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
 
     @Override
     public ResponseEntity<CompetitorActivityDao> getSelectedCompetitor(String competitor) {
-        System.out.println("Send competitor: "+competitor);
-
 //        CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);.=
-        CompetitorActivityDao allActivity = competitorRepo.existsByCompetitor(competitor);
+//        CompetitorActivityDao allActivity = competitorRepo.existsByCompetitor(competitor);
+        CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);
 
-        System.out.println("Send allActivity: "+allActivity);
         responseDao.setCode("200");
         responseDao.setMessage("Successfully fetched data");
-//        responseDao.setContent(modelMapper.map(allActivity, new TypeToken<ArrayList<CompetitorActivityDao>>(){}.getType()));
+        responseDao.setContent(allActivity);
         return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
     }
 }
