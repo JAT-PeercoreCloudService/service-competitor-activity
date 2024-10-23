@@ -13,5 +13,4 @@ public interface CompetitorRepo extends MongoRepository<CompetitorActivityDao, S
     CompetitorActivityDao existsByCompetitor(String competitor);
     Page<CompetitorActivityDao> findAllByCompetitor(String tenantId, Pageable pageable);
 
-
 }

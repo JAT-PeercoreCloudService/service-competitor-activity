@@ -1,10 +1,13 @@
 package au.com.peercore.peercorecould.service;
 
+import au.com.peercore.peercorecould.controller.CompetitorActivityController;
 import au.com.peercore.peercorecould.dao.CompetitorActivityDao;
 import au.com.peercore.peercorecould.dao.ResponseDao;
 import au.com.peercore.peercorecould.repo.CompetitorRepo;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +22,8 @@ import java.util.Map;
 
 @Service
 public class CompetitorActivityServiceImpl implements CompetitorActivityService{
+
+    Logger logger = LoggerFactory.getLogger(CompetitorActivityServiceImpl.class);
 
     @Autowired
     private CompetitorRepo competitorRepo;
@@ -71,13 +76,16 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
 
     @Override
     public ResponseEntity<CompetitorActivityDao> getSelectedCompetitor(String competitor) {
-//        CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);.=
-//        CompetitorActivityDao allActivity = competitorRepo.existsByCompetitor(competitor);
+        //CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);.=
+        //CompetitorActivityDao allActivity = competitorRepo.existsByCompetitor(competitor);
+        logger.info("Inside of getSelectedCompetitor at service IMPL");
         CompetitorActivityDao allActivity = competitorRepo.findById(competitor).orElse(null);
+        logger.info("Competitor Repo successfully passed: "+allActivity);
 
         responseDao.setCode("200");
         responseDao.setMessage("Successfully fetched data");
         responseDao.setContent(allActivity);
+        logger.info("Return Data set: "+responseDao);
         return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
     }
 }
