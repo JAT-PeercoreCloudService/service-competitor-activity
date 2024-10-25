@@ -38,7 +38,7 @@ public class CompetitorActivityController {
 
     @GetMapping("/getSelectedCompetitor/{id}")
     public ResponseEntity getSelectedCompetitor(@PathVariable String id){
-        logger.info("get selected ID competitor activity records started. Id is "+id);
+        logger.info("get selected ID competitor activity records started. Id is ");
         return competitorActivityService.getSelectedCompetitor(id);
     }
 }
