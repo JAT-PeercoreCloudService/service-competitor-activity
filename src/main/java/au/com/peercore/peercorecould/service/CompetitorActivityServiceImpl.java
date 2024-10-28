@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,20 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
     }
 
     @Override
-    public ResponseEntity getAllActivity(int pageNumber, int pageSize, Map<String, String> headers){
+    public ResponseEntity getAllActivity(int pageNumber, int pageSize, Map<String, String> headers, String userName){
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         String tenantId = headers.get("tenant");
-        System.out.println("tenantId: "+tenantId);
+
+        Page<CompetitorActivityDao> allActivity;
 
         try{
-            Page<CompetitorActivityDao> allActivity = competitorRepo.findAll(pageable);
+            if(userName.isEmpty()){
+                allActivity = competitorRepo.findAll(pageable);
+            } else {
+                allActivity = competitorRepo.getResultByKeyword(userName, pageable);
+            }
+
             System.out.println("resutl of allActivity: "+allActivity);
             //Page<CompetitorActivityDao> allActivity = competitorRepo.findAllByTenantId(tenantId, pageable);
             responseDao.setCode("200");

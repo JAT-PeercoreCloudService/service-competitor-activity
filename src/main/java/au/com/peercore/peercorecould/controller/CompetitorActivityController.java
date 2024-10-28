@@ -31,9 +31,10 @@ public class CompetitorActivityController {
     public ResponseEntity getAllActivity(
             @RequestParam(defaultValue = CommonConstants.PAGE_NUMBER) int pageNumber,
             @RequestParam(defaultValue = CommonConstants.PAGE_SIZE) int pageSize,
+            @RequestParam(defaultValue = "") String userName,
             @RequestHeader Map<String, String> headers){
         logger.info("get all competitor activity records started");
-        return competitorActivityService.getAllActivity(pageNumber, pageSize, headers);
+        return competitorActivityService.getAllActivity(pageNumber, pageSize, headers, userName);
     }
 
     @GetMapping("/getSelectedCompetitor/{id}")
