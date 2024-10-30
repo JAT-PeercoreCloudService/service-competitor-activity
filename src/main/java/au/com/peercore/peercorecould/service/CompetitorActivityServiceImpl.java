@@ -4,6 +4,7 @@ import au.com.peercore.peercorecould.controller.CompetitorActivityController;
 import au.com.peercore.peercorecould.dao.CompetitorActivityDao;
 import au.com.peercore.peercorecould.dao.ResponseDao;
 import au.com.peercore.peercorecould.repo.CompetitorRepo;
+import au.com.peercore.peercorecould.utils.OperationResponse;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
@@ -36,19 +37,23 @@ public class CompetitorActivityServiceImpl implements CompetitorActivityService{
     private ResponseDao responseDao;
 
     @Override
-    public ResponseEntity saveActivity(CompetitorActivityDao activityDao){
+    public OperationResponse saveActivity(CompetitorActivityDao activityDao){
 
         try{
+            logger.info("save activity payload :: {}", activityDao);
             CompetitorActivityDao data = competitorRepo.save(modelMapper.map(activityDao, CompetitorActivityDao.class));
-            responseDao.setCode("200");
-            responseDao.setMessage("Activity Successfully Added");
-            responseDao.setContent(data);
+            return OperationResponse.builder()
+                    .message("Activity Successfully Added")
+                    .statusCode(0)
+                    .object(data)
+                    .build();
 
-            return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
         } catch (Exception e){
-            responseDao.setCode("200");
-            responseDao.setMessage("Something Goes Wrong");
-            return new ResponseEntity(responseDao, HttpStatus.BAD_REQUEST);
+            logger.info("Error in saving activity :: {}",e.getMessage());
+            return OperationResponse.builder()
+                    .message("Error in saving activity")
+                    .statusCode(-1)
+                    .build();
         }
     }
 

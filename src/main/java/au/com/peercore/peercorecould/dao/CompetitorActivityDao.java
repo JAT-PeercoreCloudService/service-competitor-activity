@@ -1,15 +1,13 @@
 package au.com.peercore.peercorecould.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "activity")
 @Data
 @Builder
+@ToString
 public class CompetitorActivityDao {
 
     @Id
@@ -24,5 +22,8 @@ public class CompetitorActivityDao {
     private String product;
     private Object photo;
     private String notes;
+    private String createdDateTime;
+    private String latitude;
+    private String longitude;
 
 }

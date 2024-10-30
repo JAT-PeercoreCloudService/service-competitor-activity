@@ -3,6 +3,7 @@ package au.com.peercore.peercorecould.controller;
 import au.com.peercore.peercorecould.dao.CommonConstants;
 import au.com.peercore.peercorecould.dao.CompetitorActivityDao;
 import au.com.peercore.peercorecould.service.CompetitorActivityService;
+import au.com.peercore.peercorecould.utils.OperationResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class CompetitorActivityController {
     private CompetitorActivityService competitorActivityService;
 
     @PostMapping("/saveActivityReturn")
-    public ResponseEntity SaveActivityWithReturn(@RequestBody CompetitorActivityDao activityDao){
+    public ResponseEntity<OperationResponse>  SaveActivityWithReturn(@RequestBody CompetitorActivityDao activityDao){
         logger.info("create competitor activity started");
-        return competitorActivityService.saveActivity(activityDao);
+        return ResponseEntity.ok().body(competitorActivityService.saveActivity(activityDao));
     }
 
     @GetMapping("/getAllActivity")

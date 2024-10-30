@@ -1,4 +1,4 @@
-package utils;
+package au.com.peercore.peercorecould.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -66,7 +66,7 @@ public class OperationResponse {
                 .builder()
                 .object(convertPageToDto(results, clazz))
                 .pagination(
-                        Pagination.builder()
+                        utils.Pagination.builder()
                                 .pageable(results.getPageable())
                                 .sort(results.getSort())
                                 .last(results.isLast())
