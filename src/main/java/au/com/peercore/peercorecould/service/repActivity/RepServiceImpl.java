@@ -67,11 +67,9 @@ public class RepServiceImpl implements RepActivityService{
                 allActivity = repActivityRepo.getResultByKeyword(userName, pageable);
             }
 
-//            System.out.println("resutl of allActivity: "+allActivity);
-            //Page<CompetitorActivityDao> allActivity = competitorRepo.findAllByTenantId(tenantId, pageable);
             responseDao.setCode("200");
             responseDao.setMessage("Successfully fetched data");
-//            responseDao.setContent(modelMapper.map(allActivity, new TypeToken<ArrayList<CompetitorActivityDao>>(){}.getType()));
+
             responseDao.setContent(allActivity);
             return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
         } catch (Exception e){
@@ -79,6 +77,21 @@ public class RepServiceImpl implements RepActivityService{
             responseDao.setMessage("Something goes wrong");
             return new ResponseEntity(responseDao, HttpStatus.BAD_REQUEST);
         }
+
+    }
+
+    @Override
+    public ResponseEntity<OperationResponse> getSelectedCompetitor(String competitor) {
+
+        logger.info("Inside of getSelectedCompetitor at service IMPL");
+        RepActivityDao allActivity = repActivityRepo.findById(competitor).orElse(null);
+        logger.info("Competitor Repo successfully passed: "+allActivity);
+
+        responseDao.setCode("200");
+        responseDao.setMessage("Successfully fetched data");
+        responseDao.setContent(allActivity);
+        logger.info("Return Data set: "+responseDao);
+        return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
 
     }
 

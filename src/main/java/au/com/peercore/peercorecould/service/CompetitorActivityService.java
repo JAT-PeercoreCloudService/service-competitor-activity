@@ -13,5 +13,4 @@ public interface CompetitorActivityService {
    ResponseEntity<CompetitorActivityDao> getAllActivity(int pageNumber, int pageSize, Map<String, String> headers, String userName);
    ResponseEntity<CompetitorActivityDao> getSelectedCompetitor(String competitor);
 
-
 }

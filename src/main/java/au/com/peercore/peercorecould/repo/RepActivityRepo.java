@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
 public interface RepActivityRepo extends MongoRepository<RepActivityDao, String> {
-    @Query("{'firstName': { '$regex': ?0, '$options': 'i' }}")
+    @Query("{'customerId': { '$regex': ?0, '$options': 'i' }}")
     Page<RepActivityDao> getResultByKeyword(String userName, Pageable pageable);
 }

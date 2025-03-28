@@ -34,9 +34,14 @@ public class RepActivityController {
             @RequestParam(defaultValue = CommonConstants.PAGE_NUMBER) int pageNumber,
             @RequestParam(defaultValue = CommonConstants.PAGE_SIZE) int pageSize,
             @RequestParam(defaultValue = "") String customerId,
-            @RequestHeader Map<String, String> headers
-    ){
+            @RequestHeader Map<String, String> headers){
         logger.info("create competitor activity started");
         return repActivityService.getAllActivity(pageNumber, pageSize, headers, customerId);
+    }
+
+    @GetMapping("/getSelectedCompetitor/{id}")
+    public ResponseEntity getSelectedCompetitor(@PathVariable String id){
+        logger.info("get selected ID competitor activity records started. Id is ");
+        return repActivityService.getSelectedCompetitor(id);
     }
 }

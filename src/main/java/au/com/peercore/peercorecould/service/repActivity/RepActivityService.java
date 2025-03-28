@@ -12,5 +12,5 @@ public interface RepActivityService{
 
     OperationResponse saveActivity(RepActivityDao repActivityDao);
     ResponseEntity<OperationResponse> getAllActivity(int pageNumber, int pageSize, Map<String, String> headers, String userName);
-
+    ResponseEntity<OperationResponse> getSelectedCompetitor(String competitor);
 }
