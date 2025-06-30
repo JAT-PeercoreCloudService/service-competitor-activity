@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 
@@ -53,15 +55,21 @@ public class RepServiceImpl implements RepActivityService{
     }
 
     @Override
-    public ResponseEntity<OperationResponse> getAllActivity(int pageNumber, int pageSize, Map<String, String> headers, String userName) {
+    public ResponseEntity<OperationResponse> getAllActivity(int pageNumber,
+                                                            int pageSize,
+                                                            Map<String, String> headers,
+                                                            String userName) {
 
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        String tenantId = headers.get("tenant");
+        Pageable pageable = PageRequest.of(
+                pageNumber,
+                pageSize,
+                Sort.by(Sort.Direction.DESC, "id")  // 👈 Sort by id descending
+        );
 
         Page<RepActivityDao> allActivity;
 
-        try{
-            if(userName.isEmpty()){
+        try {
+            if (!StringUtils.hasText(userName)) {
                 allActivity = repActivityRepo.findAll(pageable);
             } else {
                 allActivity = repActivityRepo.getResultByKeyword(userName, pageable);
@@ -69,16 +77,42 @@ public class RepServiceImpl implements RepActivityService{
 
             responseDao.setCode("200");
             responseDao.setMessage("Successfully fetched data");
-
             responseDao.setContent(allActivity);
             return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
-        } catch (Exception e){
+
+        } catch (Exception e) {
             responseDao.setCode("500");
-            responseDao.setMessage("Something goes wrong");
+            responseDao.setMessage("Something went wrong");
             return new ResponseEntity(responseDao, HttpStatus.BAD_REQUEST);
         }
-
     }
+
+//    public ResponseEntity<OperationResponse> getAllActivity(int pageNumber, int pageSize, Map<String, String> headers, String userName) {
+//
+//        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//        String tenantId = headers.get("tenant");
+//
+//        Page<RepActivityDao> allActivity;
+//
+//        try{
+//            if(userName.isEmpty()){
+//                allActivity = repActivityRepo.findAll(pageable);
+//            } else {
+//                allActivity = repActivityRepo.getResultByKeyword(userName, pageable);
+//            }
+//
+//            responseDao.setCode("200");
+//            responseDao.setMessage("Successfully fetched data");
+//
+//            responseDao.setContent(allActivity);
+//            return new ResponseEntity(responseDao, HttpStatus.ACCEPTED);
+//        } catch (Exception e){
+//            responseDao.setCode("500");
+//            responseDao.setMessage("Something goes wrong");
+//            return new ResponseEntity(responseDao, HttpStatus.BAD_REQUEST);
+//        }
+//
+//    }
 
     @Override
     public ResponseEntity<OperationResponse> getSelectedCompetitor(String competitor) {
